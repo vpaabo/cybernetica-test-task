@@ -7,7 +7,7 @@ class Candidate:
     name: str
     team: str
     votes: int
-    elected: bool = False
+    status: str = ""  # New field: "", "ELECTED", or "ALTERNATE"
 
     def __post_init__(self) -> None:
         if self.votes < 0:

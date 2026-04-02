@@ -5,18 +5,18 @@ from typing import List
 from ranking.engine import RankingEngine
 
 
-def print_phase1_state(ranked, tie_groups):
+def print_phase1_state(ranked, tie_groups, zero_votes):
     print("\n=== PHASE 1: INITIAL RANKING ===\n")
 
+    # Print candidates with votes first
     for idx, candidate in enumerate(ranked, start=1):
         print(f"{idx}. {candidate.name} ({candidate.team}) - {candidate.votes} votes")
 
-    if tie_groups:
-        print("\nDraws detected:")
-        for group_idx, (start, end) in enumerate(tie_groups, start=1):
-            print(f"  Draw {group_idx}: positions {start + 1} to {end + 1}")
-    else:
-        print("\nNo draws detected.")
+    print("------- (0 votes) -------")
+
+    # Print zero-vote candidates alphabetically (already sorted)
+    for idx, candidate in enumerate(zero_votes):
+        print(f"{candidate.name} ({candidate.team}) - {candidate.votes} votes")
 
 
 def collect_draw_resolutions(engine: RankingEngine) -> List[List[int]]:
@@ -25,7 +25,7 @@ def collect_draw_resolutions(engine: RankingEngine) -> List[List[int]]:
     for group_number, (start, end) in enumerate(engine.tie_groups, start=1):
         group = engine.ranked[start:end + 1]
 
-        print(f"\n=== RESOLVING DRAW {group_number} ===")
+        print(f"\n== RESOLVING DRAW {group_number} ==")
         for i, candidate in enumerate(group):
             print(f"{i}. {candidate.name} ({candidate.team}) - {candidate.votes} votes")
 
@@ -65,13 +65,15 @@ def main():
 
         # Phase 1
         engine.phase1()
-        print_phase1_state(engine.ranked, engine.tie_groups)
+        print_phase1_state(engine.ranked, engine.tie_groups, engine.zero_votes)
 
         # Phase 2 (if necessary)
+        
         if engine.tie_groups:
+            print("\n=== PHASE 2: RESOLVE DRAWS ===\n")
             reordered_indices = collect_draw_resolutions(engine)
             engine.phase2(reordered_indices)
-            print("\n=== PHASE 2 COMPLETE: UPDATED RANKING ===\n")
+            
             for idx, candidate in enumerate(engine.ranked, start=1):
                 print(f"{idx}. {candidate.name} ({candidate.team}) - {candidate.votes} votes")
 

@@ -9,17 +9,18 @@ def run_phase3(
 
     elected: List[Candidate] = []
     teams_with_representative: Set[str] = set()
+    alternates: List[Candidate] = []
 
     # --- Team Seat Allocation ---
     for candidate in ranked:
         if len(teams_with_representative) >= config.team_seat_count:
             break
-
-        if candidate.elected:
+        
+        if candidate.votes == 0:
             continue
 
         if candidate.team not in teams_with_representative:
-            candidate.elected = True
+            candidate.status = "ELECTED"
             elected.append(candidate)
             teams_with_representative.add(candidate.team)
 
@@ -30,14 +31,20 @@ def run_phase3(
         for candidate in ranked:
             if remaining_seats == 0:
                 break
+            
+            if candidate.votes == 0:
+                continue
 
-            if not candidate.elected:
-                candidate.elected = True
+            if candidate.status == "":
+                candidate.status = "ELECTED"
                 elected.append(candidate)
                 remaining_seats -= 1
 
     # --- Alternates ---
-    alternates = [c for c in ranked if not c.elected]
+    for c in ranked:
+        if c.status == "":
+            c.status = "ALTERNATE"
+            alternates.append(c)
 
     return RankingResult(
         elected=elected,

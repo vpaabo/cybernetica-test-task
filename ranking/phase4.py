@@ -1,7 +1,7 @@
 from .models import RankingResult
 
 
-def format_results(result: RankingResult) -> str:
+def format_results(result: RankingResult, zero_votes) -> str:
     lines = []
 
     lines.append("=== ELECTED MEMBERS ===")
@@ -18,8 +18,7 @@ def format_results(result: RankingResult) -> str:
 
     lines.append("")
     lines.append("=== FULL RESULTS ===")
-    for c in result.full_ranking:
-        status = "ELECTED" if c.elected else ""
-        lines.append(f"{c.name} ({c.team}) - {c.votes} votes {status}")
+    for c in result.full_ranking + zero_votes:
+        lines.append(f"{c.name} ({c.team}) - {c.votes} votes {c.status}")
 
     return "\n".join(lines)
