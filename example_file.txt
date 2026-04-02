@@ -1,0 +1,19 @@
+9	8
+Eva Adamson 1	Team Alfa	0
+Eva Adamson 2	Team Alfa	0
+Eva Adamson 3	Team Beeta	0
+Eva Adamson 4	Team Beeta	13
+Eva Adamson 5	Team Gamma	14
+Eva Adamson 6	Team Gamma	15
+Eva Adamson 7	Team Delta	16
+Eva Adamson 8	Team Delta	17
+Eva Adamson 9	Team Epsilon	18
+Eva Adamson 10	Team Epsilon	19
+Eva Adamson 11	Team Eeta	20
+Eva Adamson 12	Team Ioota	21
+Eva Adamson 13	Team Ioota	21
+Eva Adamson 14	Team Ioota	21
+Eva Adamson 15	Team Ioota	21
+Eva Adamson 16	Team Ioota	21
+Eva Adamson 17	Team Lambda	1
+Eva Adamson 18	Team Tau	1
