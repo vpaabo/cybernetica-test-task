@@ -139,8 +139,12 @@ Zero-vote candidates:
 This is a deliberate strict interpretation of the specification.
 
 ---
+## Running the CLI
+```python
+python cli.py example_input.txt
+```
 
-## Testing Strategy
+## Testing
 
 The test suite includes:
 
@@ -159,9 +163,9 @@ Examples of tested invariants:
 - Proper handling of empty inputs
 
 Run tests with:
-
-    python -m unittest discover
-
+```python
+python -m unittest discover
+```
 
 ---
 
