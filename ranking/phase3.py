@@ -13,7 +13,8 @@ def run_phase3(
 
     # --- Team Seat Allocation ---
     for candidate in ranked:
-        if len(teams_with_representative) >= config.team_seat_count:
+        if len(elected) >= config.open_position_count \
+            or len(teams_with_representative) >= config.team_seat_count:
             break
         
         if candidate.votes == 0:
